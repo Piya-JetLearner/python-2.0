@@ -1,12 +1,12 @@
 import random
 grid=[]
-for i in range(4):
+for i in range(10):
     row=[]
-    for j in range(4):
+    for j in range(10):
         row.append('-')
     grid.append(row)
-tr=random.randint(0,3)
-tc=random.randint(0,3)
+tr=random.randint(0,9)
+tc=random.randint(0,9)
 while True:
     for row in grid:
         print(' '.join(row))
@@ -30,3 +30,4 @@ while True:
     if tr==ur and tc==uc:
         print("you got it right")
         break
+
