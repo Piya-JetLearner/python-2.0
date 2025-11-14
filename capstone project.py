@@ -63,9 +63,5 @@ def gameloop():
     screen.update()
     screen.ontimer(gameloop,20)
         
-spawn_obstacle()
-gameloop()
 
-
-screen.mainloop()
 
