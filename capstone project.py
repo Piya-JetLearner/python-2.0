@@ -10,6 +10,11 @@ screen.tracer(0)
 p=turtle.Turtle()
 p.shape("resized person icon.gif")
 screen.listen()
+score=0
+pen=turtle.Turtle()
+pen.up()
+pen.goto(-600,300)
+pen.color("orange")
 #Ground drawing
 ground=turtle.Turtle()
 ground.penup()
@@ -30,8 +35,8 @@ p.dx=0
 def jump():
     if (p.ycor()>-675 and p.xcor()<700):
         p.dy=5
-        p.dx=5
-    p.setx(p.xcor()+p.dx)
+     #   p.dx=5
+    #p.setx(p.xcor()+p.dx)
     p.sety(p.ycor()+p.dy)
 screen.onkey(jump,'space')
 obstacles=[]
@@ -51,6 +56,7 @@ def is_on_ground():
     """Check if player stands on ground"""
     return p.ycor()<=-300 + 70
 def is_on_obstacle():
+    global score
     for obs in obstacles:
         ox,oy=obs.xcor(),obs.ycor()
         if (abs(p.xcor()-ox)<30):
@@ -58,6 +64,9 @@ def is_on_obstacle():
             if p.dy<=0 and p.ycor()<=oy+45 and p.ycor()>oy+20:
                 p.sety(oy+45)
                 p.dy=0
+                score=score+1
+                pen.clear()
+                pen.write("Score:"+str(score))
 
 def gameloop():
     global obstacles
@@ -68,7 +77,7 @@ def gameloop():
         p.dy=0
 
     for obs in obstacles:
-        obs.setx(obs.xcor()-10)
+        obs.setx(obs.xcor()-5)
         if obs.xcor()<-600:
             obs.hideturtle()
             obstacles.remove(obs)
@@ -82,8 +91,5 @@ gameloop()
 
 
 
+
 screen.mainloop()
-        
-
-
-
