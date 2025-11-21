@@ -4,7 +4,9 @@ screen=turtle.Screen()
 screen.bgpic("game background.gif")
 screen.addshape("resized person icon.gif")
 screen.addshape("platform.gif")
+#screen.addshape("Obstacles python.gif")
 screen.tracer(0)
+#images=["Obstacles python.gif","platform.gif"]
 p=turtle.Turtle()
 p.shape("resized person icon.gif")
 screen.listen()
@@ -26,7 +28,7 @@ p.penup()
 p.dy=0
 p.dx=0
 def jump():
-    if p.ycor()>-675:
+    if (p.ycor()>-675 and p.xcor()<700):
         p.dy=5
         p.dx=5
     p.setx(p.xcor()+p.dx)
@@ -35,6 +37,7 @@ screen.onkey(jump,'space')
 obstacles=[]
 def spawn_obstacle():
     obs=turtle.Turtle()
+    #obs.shape(random.choice(images))
     obs.shape("platform.gif")
     obs.hideturtle()
     x=600
@@ -47,6 +50,15 @@ def spawn_obstacle():
 def is_on_ground():
     """Check if player stands on ground"""
     return p.ycor()<=-300 + 70
+def is_on_obstacle():
+    for obs in obstacles:
+        ox,oy=obs.xcor(),obs.ycor()
+        if (abs(p.xcor()-ox)<30):
+
+            if p.dy<=0 and p.ycor()<=oy+45 and p.ycor()>oy+20:
+                p.sety(oy+45)
+                p.dy=0
+
 def gameloop():
     global obstacles
     p.dy+=-0.7
@@ -60,8 +72,18 @@ def gameloop():
         if obs.xcor()<-600:
             obs.hideturtle()
             obstacles.remove(obs)
+    is_on_obstacle()
+
     screen.update()
     screen.ontimer(gameloop,20)
         
+spawn_obstacle()
+gameloop()
+
+
+
+screen.mainloop()
+        
+
 
 
